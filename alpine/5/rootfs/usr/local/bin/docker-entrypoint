@@ -106,11 +106,11 @@ file_env 'S3_SECRET'
 
 # Run IN/Laravel stuff
 if [[ "$1" == "supervisord" ]] || [[ "$1" == "php-fpm" ]]; then
-    in_log INFO "Initialising Invoice Ninja..."
-    . invoiceninja-init.sh
-
     in_log INFO "Copying env vars from config.yaml..."
     . copy_env_from_config.yaml
+
+    in_log INFO "Initialising Invoice Ninja..."
+    . invoiceninja-init.sh
 fi
 
 exec docker-php-entrypoint "$@"
