@@ -61,17 +61,22 @@ RUN install-php-extensions \
     @composer \
     && rm /usr/local/bin/install-php-extensions
 
-# Install Bashio and dependencies
-RUN apk add --no-cache bash curl jq
+# Install Bashio, Tempio, and other dependencies
+ARG BASHIO_VERSION="v0.16.2"
+ARG TEMPIO_VERSION="2021.09.0"
+ARG BUILD_ARCH=amd64
 
-# Download bashio script and place it in the correct directory
-RUN curl -L -o /tmp/bashio.tar.gz \
-    "https://github.com/hassio-addons/bashio/archive/v0.16.2.tar.gz" \
+RUN apk add --no-cache bash curl jq tzdata \
+    && curl -J -L -o /tmp/bashio.tar.gz \
+        "https://github.com/hassio-addons/bashio/archive/${BASHIO_VERSION}.tar.gz" \
     && mkdir /tmp/bashio \
     && tar zxvf /tmp/bashio.tar.gz --strip 1 -C /tmp/bashio \
     && mv /tmp/bashio/lib /usr/lib/bashio \
-    && ln -s /usr/lib/bashio/bashio /usr/local/bin/bashio \
-    && rm -rf /tmp/bashio /tmp/bashio.tar.gz
+    && ln -s /usr/lib/bashio/bashio /usr/bin/bashio \
+    && curl -L -s -o /usr/bin/tempio \
+        "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}" \
+    && chmod a+x /usr/bin/tempio \
+    && rm -rf /tmp/*
 
 # Copy files
 COPY rootfs /
