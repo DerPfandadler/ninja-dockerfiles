@@ -3,7 +3,7 @@ ARG BAK_STORAGE_PATH=/var/www/app/docker-backup-storage/
 ARG BAK_PUBLIC_PATH=/var/www/app/docker-backup-public/
 
 # Use Home Assistant Add-on Base
-FROM homeassistant/aarch64-base:3.15
+FROM homeassistant/aarch64-base:3.15 as base
 
 
 # Get Invoice Ninja and install nodejs packages
