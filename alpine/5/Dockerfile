@@ -119,5 +119,4 @@ ENV APP_ENV production
 ENV LOG errorlog
 ENV SNAPPDF_EXECUTABLE_PATH /usr/bin/chromium-browser
 
-ENTRYPOINT ["docker-entrypoint"]
-CMD ["supervisord"]
+ENTRYPOINT ["/init"]
