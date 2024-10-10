@@ -42,7 +42,7 @@ endif
 build-alpine-v5:
 ifneq ($(IS_V5),)
 	$(info Make: Building "$(VERSION)" tagged images from alpine.)
-	@docker build --platform linux/arm64 -t ${HUB_NAMESPACE}/${IMAGE}:${VERSION} --build-arg INVOICENINJA_VERSION=${VERSION} ./alpine/5/
+	@docker build --platform linux/arm64 $(DOCKER_BUILD_OPTS) -t ${HUB_NAMESPACE}/${IMAGE}:${VERSION} --build-arg INVOICENINJA_VERSION=${VERSION} ./alpine/5/
 	@docker tag ${HUB_NAMESPACE}/${IMAGE}:${VERSION} ${HUB_NAMESPACE}/${IMAGE}:5
 	@docker tag ${HUB_NAMESPACE}/${IMAGE}:${VERSION} ${HUB_NAMESPACE}/${IMAGE}:latest
 	$(info Make: Done.)
