@@ -61,10 +61,16 @@ RUN install-php-extensions \
     @composer \
     && rm /usr/local/bin/install-php-extensions
 
-# Install Bashio
+# Install Bashio and dependencies
 RUN apk add --no-cache bash curl jq
-RUN curl -J -L -o /usr/bin/bashio https://github.com/hassio-addons/bashio/releases/latest/download/bashio
-RUN chmod +x /usr/bin/bashio
+
+# Download bashio script and place it in the correct directory
+RUN mkdir -p /usr/lib/bashio \
+    && curl -J -L -o /usr/lib/bashio/bashio.sh https://github.com/hassio-addons/bashio/releases/latest/download/bashio \
+    && chmod +x /usr/lib/bashio/bashio.sh
+
+# Ensure scripts source bashio correctly
+RUN ln -s /usr/lib/bashio/bashio.sh /usr/local/bin/bashio
 
 # Copy files
 COPY rootfs /
