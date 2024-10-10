@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bashio
+#!/usr/bin/env bash
 
 source /usr/lib/bashio/bashio.sh
 
