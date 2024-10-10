@@ -1,5 +1,7 @@
 #!/usr/bin/with-contenv bashio
 
+source /usr/local/bin/bashio.sh
+
 # Log the start of the script
 bashio::log.info "Starting run.sh script..."
 
