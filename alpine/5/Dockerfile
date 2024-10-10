@@ -71,6 +71,8 @@ RUN mkdir -p /usr/lib/bashio \
 
 # Ensure scripts source bashio correctly
 RUN ln -s /usr/lib/bashio/bashio.sh /usr/local/bin/bashio
+RUN echo "source /usr/lib/bashio/bashio.sh" >> /etc/profile
+
 
 # Copy files
 COPY rootfs /
