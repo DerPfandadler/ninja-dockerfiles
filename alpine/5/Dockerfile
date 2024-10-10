@@ -65,14 +65,12 @@ RUN install-php-extensions \
 RUN apk add --no-cache bash curl jq
 
 # Download bashio script and place it in the correct directory
-RUN mkdir -p /usr/lib/bashio \
-    && curl -J -L -o /usr/lib/bashio/bashio.sh https://github.com/hassio-addons/bashio/releases/latest/download/bashio \
-    && chmod +x /usr/lib/bashio/bashio.sh
-
-# Ensure scripts source bashio correctly
-RUN ln -s /usr/lib/bashio/bashio.sh /usr/local/bin/bashio
-RUN echo "source /usr/lib/bashio/bashio.sh" >> /etc/profile
-
+RUN curl -L -o /tmp/bashio.tar.gz \
+        "https://github.com/hassio-addons/bashio/archive/v0.16.2.tar.gz" \
+    && mkdir /tmp/bashio \
+    && tar zxvf /tmp/bashio.tar.gz --strip 1 -C /tmp/bashio \
+    && mv /tmp/bashio/lib /usr/lib/bashio \
+    &&
 
 # Copy files
 COPY rootfs /
